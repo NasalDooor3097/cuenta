@@ -9,7 +9,7 @@ DATABASE_FILE = "database.json"
 
 
 
-# Funciones para manejar la base de datos JSON
+
 def cargar_datos():
     try:
         with open(DATABASE_FILE, "r") as archivo:
@@ -27,7 +27,7 @@ def guardar_datos(datos):
 
 
 
-# Ruta para registrar usuario
+
 @app.route("/registro", methods=["POST"])
 def registrar_usuario():
     datos = request.json
@@ -40,10 +40,10 @@ def registrar_usuario():
         if usuario["correo"] == datos["correo"]:
             return jsonify({"mensaje": "Error: El correo ya está registrado"}), 400
 
-    datos["entrada"] = None  # Se agrega el campo para la hora de entrada
-    datos["salida"] = None  # Se agrega el campo para la hora de salida
-    datos["horas_trabajadas"] = None  # Se agrega el campo para tiempo trabajado
-    datos["total_receso"] = "0:00:00"  # Se agrega el campo para los recesos
+    datos["entrada"] = None  
+    datos["salida"] = None  
+    datos["horas_trabajadas"] = None  
+    datos["total_receso"] = "0:00:00"  
 
     db[datos["username"]] = datos
     guardar_datos(db)
@@ -53,7 +53,7 @@ def registrar_usuario():
 
 
 
-# Ruta para iniciar sesión y registrar hora de entrada
+
 @app.route("/login", methods=["POST"])
 def iniciar_sesion():
     datos = request.json
@@ -72,7 +72,7 @@ def iniciar_sesion():
 
 
 
-# Ruta para registrar la hora de salida y calcular tiempo trabajado
+
 @app.route("/guardar_tiempo", methods=["POST"])
 def guardar_tiempo():
     datos = request.json
@@ -91,6 +91,10 @@ def guardar_tiempo():
 
     guardar_datos(db)
     return jsonify({"mensaje": f"Salida registrada. Tiempo trabajado: {tiempo_trabajado}"}), 200
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

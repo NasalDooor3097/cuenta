@@ -8,7 +8,7 @@ tiempo_inicio = None
 tiempo_receso = None
 tiempo_total_receso = datetime.timedelta()
 
-# Función para enviar los datos de registro
+
 def enviar_datos():
     nombre = entry_nombre.get()
     correo = entry_correo.get()
@@ -26,7 +26,7 @@ def enviar_datos():
     else:
         messagebox.showerror("Error", respuesta.json()["mensaje"])
 
-# Función para iniciar sesión y registrar la hora de entrada
+
 def enviar_login():
     global tiempo_inicio
     correo = entry_login_correo.get()
@@ -46,13 +46,13 @@ def enviar_login():
     else:
         messagebox.showerror("Error", respuesta.json()["mensaje"])
 
-# Función para registrar receso
+
 def iniciar_receso():
     global tiempo_receso
     tiempo_receso = datetime.datetime.now()
     messagebox.showinfo("Receso", "Receso iniciado, el tiempo de trabajo se ha pausado.")
 
-# Función para finalizar receso
+
 def finalizar_receso():
     global tiempo_receso, tiempo_total_receso
     if tiempo_receso:
@@ -60,7 +60,7 @@ def finalizar_receso():
         tiempo_receso = None
         messagebox.showinfo("Receso", "Receso finalizado, el tiempo de trabajo se reanuda.")
 
-# Función para cerrar sesión y registrar el tiempo trabajado
+
 def cerrar_sesion(correo):
     global tiempo_inicio, tiempo_total_receso
     if tiempo_inicio:
@@ -80,7 +80,7 @@ def cerrar_sesion(correo):
 
     mostrar_login()
 
-# Pantalla principal después del login
+
 def mostrar_pantalla_principal(correo):
     limpiar_pantalla()
     tk.Label(ventana, text="¡Bienvenido!", font=("Arial", 16)).pack(pady=20)
@@ -89,7 +89,7 @@ def mostrar_pantalla_principal(correo):
     tk.Button(ventana, text="Finalizar Receso", command=finalizar_receso).pack(pady=5)
     tk.Button(ventana, text="Cerrar Sesión", command=lambda: cerrar_sesion(correo)).pack(pady=10)
 
-# Pantalla de login
+
 def mostrar_login():
     limpiar_pantalla()
     tk.Label(ventana, text="Login", font=("Arial", 14)).pack(pady=10)
@@ -105,7 +105,7 @@ def mostrar_login():
 
     tk.Button(ventana, text="Iniciar Sesión", command=enviar_login).pack(pady=10)
 
-# Pantalla de registro
+
 def mostrar_registro():
     limpiar_pantalla()
     tk.Label(ventana, text="Registro de Usuario", font=("Arial", 14)).pack(pady=10)
@@ -125,18 +125,18 @@ def mostrar_registro():
 
     tk.Button(ventana, text="Registrar", command=enviar_datos).pack(pady=10)
 
-# Limpiar pantalla antes de cambiar de vista
+
 def limpiar_pantalla():
     for widget in ventana.winfo_children():
         widget.destroy()
-    crear_navbar()  # Vuelve a crear el navbar después de limpiar pantalla
+    crear_navbar() 
 
-# Crear ventana principal
+
 ventana = tk.Tk()
 ventana.title("App de Registro de Horarios")
 ventana.geometry("300x300")
 
-# Navbar con botones
+
 def crear_navbar():
     navbar = tk.Frame(ventana, bg="gray")
     navbar.pack(fill="x")
